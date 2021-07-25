@@ -1,3 +1,11 @@
+# Benefits of FastAPI
+
+- automatically generates a Swagger Docs for all API Endpoints -> ```sh
+  // %baseurl%/docs
+  http://localhost:8080/docs
+
+````
+
 # Tools
 
 - FastAPI
@@ -15,7 +23,7 @@
 
 ```sh
     pip install virtualenv
-```
+````
 
 ### start virtualenv
 
