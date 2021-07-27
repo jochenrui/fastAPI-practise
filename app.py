@@ -1,6 +1,7 @@
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 
 from employees import Roles
@@ -9,6 +10,18 @@ from service import get_ranked_data_with_requests_lib, get_ranked_data_with_aioh
 
 def main():
     app = FastAPI()
+
+    origins = [
+        "http://localhost:3000"
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     employeeDB = [
         {
