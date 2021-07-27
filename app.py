@@ -1,7 +1,10 @@
+
 import uvicorn
 from fastapi import FastAPI
+import asyncio
 
 from employees import Roles
+from service import get_ranked_data_with_requests_lib, get_ranked_data_with_aiohttp_lib
 
 
 def main():
@@ -37,6 +40,20 @@ def main():
         Endpoint to get employees by role
         """
         return [employee for employee in employeeDB if employee["role"] == role]
+
+    @app.get("/ranked-stats/{summoner_id}")
+    def get_ranked_stats_by_summoner_id(summoner_id: str):
+        """
+        Endpoint to get Ranked Stats by Summoner ID
+        """
+        return get_ranked_data_with_requests_lib(summoner_id)
+
+    @app.get("/ranked-stats-aiohttp/{summoner_id}")
+    def get_ranked_stats_by_summoner_id(summoner_id: str):
+        """
+        Endpoint to get Ranked Stats by Summoner ID
+        """
+        return asyncio.run(get_ranked_data_with_aiohttp_lib(summoner_id))
 
     uvicorn.run(app, host="localhost", port=8080)
 
